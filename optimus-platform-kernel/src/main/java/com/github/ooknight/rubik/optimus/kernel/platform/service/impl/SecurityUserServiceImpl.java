@@ -1,6 +1,5 @@
 package com.github.ooknight.rubik.optimus.kernel.platform.service.impl;
 
-import com.github.ooknight.rubik.core.kernel.DBContext;
 import com.github.ooknight.rubik.core.query.QueryEngine;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
@@ -10,6 +9,7 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QPrivilege
 import com.github.ooknight.rubik.optimus.archer.platform.service.SecurityUserService;
 
 import com.google.common.collect.Sets;
+import io.ebean.Database;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class SecurityUserServiceImpl implements SecurityUserService {
 
     @Resource
-    private DBContext db;
+    private Database db;
 
     @Override
     public Optional<Account> getAccount(String username) {

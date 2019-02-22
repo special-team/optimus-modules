@@ -4,7 +4,7 @@
 
     <groupId>com.github.ooknight.rubik</groupId>
     <artifactId>optimus-modules</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -16,8 +16,9 @@
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.org.springframework.boot>2.0.4.RELEASE</version.org.springframework.boot>
+        <version.org.springframework.boot>2.1.3.RELEASE</version.org.springframework.boot>
         <version.com.github.ooknight.rubik>1.0.0</version.com.github.ooknight.rubik>
+        <revision>1.0.0</revision>
     </properties>
 
     <dependencyManagement>
@@ -25,7 +26,7 @@
             <dependency>
                 <groupId>com.github.ooknight.rubik</groupId>
                 <artifactId>optimus-dependencies</artifactId>
-                <version>${project.version}</version>
+                <version>${version.com.github.ooknight.rubik}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -48,7 +49,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -65,7 +66,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
+                    <version>2.22.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -102,9 +103,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${version.org.springframework.boot}</version>
-                    <configuration>
-                        <executable>true</executable>
-                    </configuration>
                     <executions>
                         <execution>
                             <goals>
@@ -116,11 +114,11 @@
                 <plugin>
                     <groupId>io.repaint.maven</groupId>
                     <artifactId>tiles-maven-plugin</artifactId>
-                    <version>2.12</version>
+                    <version>2.13</version>
                     <extensions>true</extensions>
                     <configuration>
                         <tiles>
-                            <tile>io.ebean.tile:enhancement:5.6</tile>
+                            <tile>io.ebean.tile:enhancement:7.5</tile>
                         </tiles>
                     </configuration>
                 </plugin>

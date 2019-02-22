@@ -18,7 +18,7 @@ import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PlatformAutoConfiguration.class)
-@ActiveProfiles(JUNIT.SPRING_PROFILE)
+@ActiveProfiles(JUNIT.PROFILE_DEVELOP)
 public class SecurityUserServiceTest {
 
     @Resource

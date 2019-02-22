@@ -1,7 +1,6 @@
 package com.github.ooknight.rubik.optimus.kernel.platform.service.impl;
 
 import optimus.DOMAIN;
-import com.github.ooknight.rubik.core.kernel.DBContext;
 import com.github.ooknight.rubik.core.query.QueryEngine;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
@@ -16,6 +15,7 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QSetting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
 import com.github.ooknight.rubik.optimus.archer.platform.service.PlatformService;
 
+import io.ebean.Database;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ import java.util.List;
 public class PlatformServiceImpl implements PlatformService {
 
     @Resource
-    private DBContext db;
+    private Database db;
 
     @Override
     public void create(Account account) {

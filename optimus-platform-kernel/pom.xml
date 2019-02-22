@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.ooknight.rubik</groupId>
         <artifactId>optimus-modules</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>optimus-platform-kernel</artifactId>
@@ -18,6 +18,7 @@
         <dependency>
             <groupId>com.github.ooknight.rubik</groupId>
             <artifactId>optimus-platform-domain</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.github.ooknight.rubik</groupId>
