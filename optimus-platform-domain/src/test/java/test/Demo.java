@@ -64,8 +64,8 @@ public class Demo {
     @Test
     public void test2() {
         Setting setting = new Setting();
-        setting.setConfigKey(Setting.KEY.ACCOUNT_DEFAULT_PASSWORD);
-        setting.setConfigValue("123456");
+        setting.setKey("ACCOUNT_DEFAULT_PASSWORD");
+        setting.setValue("123456");
         System.out.println(setting);
         db.insert(setting);
         System.out.println(db.createQuery(Setting.class).findList());

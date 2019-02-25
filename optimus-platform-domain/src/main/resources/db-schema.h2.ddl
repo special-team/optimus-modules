@@ -10,18 +10,13 @@ DROP TABLE IF EXISTS e_platform_module;
 DROP TABLE IF EXISTS e_platform_function;
 DROP TABLE IF EXISTS e_platform_message;
 
--- ======== ======== ======== ========
--- config
--- ======== ======== ======== ========
+-- ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= =========
+-- setting
+-- ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= =========
 CREATE TABLE e_platform_setting (
-    id_           BIGINT AUTO_INCREMENT NOT NULL,
-    config_key_   VARCHAR(64)           NULL COMMENT '配置KEY',
-    config_value_ VARCHAR(64)           NULL COMMENT '配置VALUE',
-    deleted_      BOOLEAN DEFAULT FALSE NOT NULL,
-    created_      DATETIME              NULL,
-    updated_      DATETIME              NULL,
-    CONSTRAINT setting_pk PRIMARY KEY (id_),
-    CONSTRAINT setting_uk_config_key UNIQUE (config_key_)
+    key_   VARCHAR(64) NOT NULL COMMENT '配置KEY',
+    value_ VARCHAR(64) NOT NULL COMMENT '配置VALUE',
+    CONSTRAINT setting_pk PRIMARY KEY (key_)
 );
 
 -- ======== ======== ======== ========

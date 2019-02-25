@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ebean xmlns="http://ebean-orm.github.io/xml/ns/ebean">
-    <entity class="com.github.ooknight.rubik.optimus.archer.platform.entity.Function">
-        <raw-sql name="get-role-resource">
+    <entity class="com.github.ooknight.rubik.optimus.archer.platform.entity.Permission">
+        <raw-sql name="get-role-permission">
             <column-mapping column="f.code_" property="code"/>
             <query>
                 SELECT f.code_
-                FROM e_platform_role_resource r
+                FROM e_platform_role_permission p
                     INNER JOIN e_platform_function f ON f.id_ = r.function_id_
                 WHERE r.role_id_ = :id
             </query>
@@ -14,7 +14,7 @@
             <column-mapping column="f.code_" property="code"/>
             <query>
                 SELECT f.code_
-                FROM e_platform_account_resource r
+                FROM e_platform_account_permission p
                     INNER JOIN e_platform_function f ON f.id_ = r.function_id_
                 WHERE r.account_id_ = :id
             </query>

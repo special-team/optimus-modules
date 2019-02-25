@@ -1,6 +1,5 @@
 package com.github.ooknight.rubik.optimus.kernel.platform.service.impl;
 
-import optimus.DOMAIN;
 import com.github.ooknight.rubik.core.query.QueryEngine;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
@@ -22,6 +21,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
+
+import static com.github.ooknight.rubik.core.schema.AbstractSchema.column;
+import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.platform;
+import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.setting;
 
 @Service
 public class PlatformServiceImpl implements PlatformService {
@@ -75,16 +79,14 @@ public class PlatformServiceImpl implements PlatformService {
 
     @Cacheable("setting")
     @Override
-    public String setting(Setting.KEY key) {
-        return QueryEngine.QUERY(QSetting.class).configKey.equalTo(key)
-            .findOneOrEmpty().orElseThrow(() -> DOMAIN.ENTITY_NOT_FOUND(Setting.class, key)).getConfigValue();
+    public Optional<String> setting(String key) {
+        return new QSetting().select(setting.value).key.equalTo(key).findOneOrEmpty().map(Setting::getValue);
     }
 
     @CacheEvict(value = "setting", key = "#key")
     @Override
-    public void setting(Setting.KEY key, String value) {
-        db.update(Setting.class).set(QSetting.alias().configValue.toString(), value)
-            .where().eq(QSetting.alias().configKey.toString(), key).update();
+    public void setting(String key, String value) {
+        db.update(Setting.class).set(column(platform.setting.value), value).where().eq(column(platform.setting.key), key).update();
     }
 
     @Override

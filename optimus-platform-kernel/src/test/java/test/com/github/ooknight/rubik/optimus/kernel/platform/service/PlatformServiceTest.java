@@ -5,7 +5,6 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Group;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Module;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
-import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.service.PlatformService;
 import com.github.ooknight.rubik.optimus.kernel.platform.PlatformAutoConfiguration;
 import com.github.ooknight.rubik.support.mocker.Mock;
@@ -77,15 +76,15 @@ public class PlatformServiceTest {
     @Test
     public void settingGet() {
         System.out.println("========= ========= ========= ========= ========= ========= ========= ========= ========= first fetch");
-        String r = service.setting(Setting.KEY.ACCOUNT_DEFAULT_PASSWORD);
+        String r = service.setting("ACCOUNT_DEFAULT_PASSWORD").orElse("");
         System.out.println(r);
         System.out.println("========= ========= ========= ========= ========= ========= ========= ========= ========= second fetch");
-        String r2 = service.setting(Setting.KEY.ACCOUNT_DEFAULT_PASSWORD);
+        String r2 = service.setting("ACCOUNT_DEFAULT_PASSWORD").orElse("");
         System.out.println(r2);
         System.out.println("========= ========= ========= ========= ========= ========= ========= ========= ========= put");
-        service.setting(Setting.KEY.ACCOUNT_DEFAULT_PASSWORD, "654321");
+        service.setting("ACCOUNT_DEFAULT_PASSWORD", "654321");
         System.out.println("========= ========= ========= ========= ========= ========= ========= ========= ========= after put fetch");
-        String r3 = service.setting(Setting.KEY.ACCOUNT_DEFAULT_PASSWORD);
+        String r3 = service.setting("ACCOUNT_DEFAULT_PASSWORD").orElse("");
         System.out.println(r3);
     }
 

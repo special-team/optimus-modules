@@ -6,9 +6,9 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Group;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Module;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
-import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PlatformService extends IService {
 
@@ -28,9 +28,9 @@ public interface PlatformService extends IService {
 
     List<Function> shortcut();
 
-    String setting(Setting.KEY key);
+    Optional<String> setting(String key);
 
-    void setting(Setting.KEY key, String value);
+    void setting(String key, String value);
 
     void changeAccountPassword(Long accountId, String password);
 }
