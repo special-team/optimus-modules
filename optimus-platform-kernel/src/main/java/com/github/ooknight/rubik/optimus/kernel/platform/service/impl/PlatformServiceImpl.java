@@ -1,6 +1,5 @@
 package com.github.ooknight.rubik.optimus.kernel.platform.service.impl;
 
-import optimus.KERNEL;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Group;
@@ -9,6 +8,7 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QAccount;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QFunction;
+import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QModule;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QSetting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
 import com.github.ooknight.rubik.optimus.archer.platform.service.PlatformService;
@@ -64,10 +64,9 @@ public class PlatformServiceImpl implements PlatformService {
     @Cacheable("menu")
     @Override
     public List<Module> menu() {
-        throw KERNEL.SERVICE_NOT_SUPPORT();
-        //return QueryEngine.QUERY(QModule.class)
-        //    .function.filterMany(QueryEngine.QUERY(QFunction.class).display.in(DisplayMode.MENU, DisplayMode.MENU_AND_SHORTCUT).getExpressionList())
-        //    .ordinal.asc().function.ordinal.asc().findList();
+        return new QModule()
+            .function.filterMany(new QFunction().display.in(DisplayMode.MENU, DisplayMode.MENU_AND_SHORTCUT).getExpressionList())
+            .ordinal.asc().function.ordinal.asc().findList();
     }
 
     @Cacheable("shortcut")
@@ -89,7 +88,7 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
-    public void changeAccountPassword(Long accountId, String password) {
+    public void password(Long accountId, String password) {
         new QAccount().id.eq(accountId).asUpdate().set(p(platform.account.password), password).update();
     }
 }

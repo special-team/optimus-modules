@@ -32,5 +32,5 @@ public interface PlatformService extends IService {
 
     void setting(String key, String value);
 
-    void changeAccountPassword(Long accountId, String password);
+    void password(Long accountId, String password);
 }

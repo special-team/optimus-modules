@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS e_platform_message;
 -- setting
 -- ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= ========= =========
 CREATE TABLE e_platform_setting (
-    key_   VARCHAR(64) NOT NULL COMMENT '配置KEY',
-    value_ VARCHAR(64) NOT NULL COMMENT '配置VALUE',
+    key_   VARCHAR(50) NOT NULL COMMENT '配置KEY',
+    value_ VARCHAR(50) NOT NULL COMMENT '配置VALUE',
     CONSTRAINT setting_pk PRIMARY KEY (key_)
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE e_platform_permission (
 -- ======== ======== ======== ========
 CREATE TABLE e_platform_role (
     id_      BIGINT AUTO_INCREMENT NOT NULL,
-    name_    VARCHAR(150)          NOT NULL COMMENT '角色名称',
+    name_    VARCHAR(50)           NOT NULL COMMENT '角色名称',
     deleted_ BOOLEAN DEFAULT FALSE NOT NULL,
     created_ DATETIME              NULL,
     updated_ DATETIME              NULL,
@@ -66,17 +66,17 @@ CREATE TABLE e_platform_group (
 -- ======== ======== ======== ========
 CREATE TABLE e_platform_account (
     id_                 BIGINT AUTO_INCREMENT NOT NULL,
-    username_           VARCHAR(200)          NOT NULL COMMENT '用户名',
-    password_           VARCHAR(200)          NOT NULL COMMENT '密码',
-    nickname_           VARCHAR(200)          NULL COMMENT '昵称',
-    certificate_type_   INT                   NULL COMMENT '证件类型',
+    username_           VARCHAR(50)           NOT NULL COMMENT '用户名',
+    password_           VARCHAR(50)           NOT NULL COMMENT '密码',
+    nickname_           VARCHAR(50)           NULL COMMENT '昵称',
+    certificate_type_   VARCHAR(20)           NULL COMMENT '证件类型',
     certificate_number_ VARCHAR(50)           NULL COMMENT '证件号码',
     mobile_             VARCHAR(50)           NULL COMMENT '手机',
     email_              VARCHAR(50)           NULL COMMENT '邮箱',
     role_id_            BIGINT                NULL COMMENT '角色',
     group_id_           BIGINT                NULL COMMENT '组',
     type_               VARCHAR(20)           NOT NULL COMMENT '用户标识',
-    salt_               VARCHAR(32)           NOT NULL COMMENT 'SALT',
+    salt_               VARCHAR(50)           NULL COMMENT 'SALT',
     deleted_            BOOLEAN DEFAULT FALSE NOT NULL,
     created_            DATETIME              NULL,
     updated_            DATETIME              NULL,
@@ -154,9 +154,9 @@ CREATE TABLE e_platform_function (
     parent_    BIGINT                NULL COMMENT '父级功能',
     url_       VARCHAR(100)          NOT NULL COMMENT '地址',
     icon_      VARCHAR(20)           NULL COMMENT '图标',
-    type_      VARCHAR(10)           NOT NULL COMMENT '类型',
-    display_   INT                   NULL COMMENT '显示[1:菜单显示|2:快捷显示|3:菜单和快捷显示]',
-    is_lock_   INT                   NULL COMMENT '是否锁定',
+    type_      VARCHAR(20)           NOT NULL COMMENT '类型',
+    display_   VARCHAR(20)           NULL COMMENT '显示[菜单显示|快捷显示|菜单和快捷显示]',
+    is_lock_   BOOLEAN               NULL COMMENT '是否锁定',
     ordinal_   INT                   NULL COMMENT '顺序编号',
     deleted_   BOOLEAN DEFAULT FALSE NOT NULL,
     created_   DATETIME              NULL,
@@ -164,7 +164,6 @@ CREATE TABLE e_platform_function (
     CONSTRAINT function_pk PRIMARY KEY (id_),
     CONSTRAINT function_fk_module FOREIGN KEY (module_id_) REFERENCES e_platform_module (id_)
 );
--- //CONSTRAINT function_uk_name UNIQUE (name_),
 
 -- ======== ======== ======== ========
 -- message 系统消息
@@ -173,7 +172,7 @@ CREATE TABLE e_platform_message (
     id_      BIGINT AUTO_INCREMENT NOT NULL,
     title_   VARCHAR(100)          NULL COMMENT '标题',
     content_ VARCHAR(999)          NULL COMMENT '内容',
-    from_    BIGINT                NOT NULL COMMENT '发件人',
+    from_    BIGINT                NULL COMMENT '发件人',
     to_      BIGINT                NOT NULL COMMENT '收件人',
     deleted_ BOOLEAN DEFAULT FALSE NOT NULL,
     created_ DATETIME              NULL,

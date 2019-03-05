@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -35,6 +37,7 @@ public class Function extends UEntity {
     @Column(name = "type_")
     private String type;
     @Column(name = "display_")
+    @Enumerated(EnumType.STRING)
     private DisplayMode display;
     @Column(name = "is_lock_")
     private Integer isLock;

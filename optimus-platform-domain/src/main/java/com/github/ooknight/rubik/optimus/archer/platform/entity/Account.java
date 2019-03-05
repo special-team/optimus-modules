@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -39,6 +41,7 @@ public class Account extends UEntity {
     @JoinColumn(name = "group_id_")
     private Group group;
     @Column(name = "type_")
+    @Enumerated(EnumType.STRING)
     private SessionUserType type;
     @Column(name = "salt_")
     private String salt;

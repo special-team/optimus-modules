@@ -10,7 +10,7 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Privilege;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
-import com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema;
+import com.github.ooknight.rubik.prototype.authority.SessionUserType;
 
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
@@ -18,9 +18,10 @@ import io.ebean.config.DatabaseConfig;
 import io.ebean.datasource.DataSourceConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.p;
-import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.platform;
+import static test.Demo.OM.om;
 
 public class Demo {
 
@@ -47,7 +48,20 @@ public class Demo {
     }
 
     @Test
-    public void test() {
+    public void testInsert() {
+        db.insert(om.account("test", "123456", SessionUserType.NORMAL));
+        //db.insert(function);
+        db.insert(om.group("test"));
+        //db.insert(message);
+        //db.insert(module);
+        db.insert(om.permission("test", "test"));
+        //db.insert(privilege);
+        db.insert(om.role("test"));
+        db.insert(om.setting("test", "123"));
+    }
+
+    @Test
+    public void testQuery() {
         System.out.println(db.find(Account.class).findList().size());
         System.out.println(db.find(Function.class).findList().size());
         System.out.println(db.find(Group.class).findList().size());
@@ -68,41 +82,33 @@ public class Demo {
     }
 
     @Test
-    public void test2() {
-        Setting setting = new Setting();
-        setting.setKey("ACCOUNT_DEFAULT_PASSWORD");
-        setting.setValue("123456");
-        System.out.println(setting);
-        db.insert(setting);
-        System.out.println(db.createQuery(Setting.class).findList());
-    }
-
-    @Test
     public void test3() {
-        System.out.println(PlatformSchema.platform.setting.key.eq("1"));
-        System.out.println(PlatformSchema.platform.setting.value);
-        db.insert(from("t1", "v1"));
-        db.delete(Setting.class, "t0");
-        db.update(from("t1", "v1"));
-        db.update(Setting.class)
-            .set(p(platform.setting.value), "vvv")
-            .where().eq(p(platform.setting.key), "kkk")
-            .update();
-        db.createQuery(Setting.class).where().findList();
+        db.insert(om.account("test", "123456", SessionUserType.NORMAL));
+        System.out.println(db.find(Account.class).findList());
+        System.out.println(db.createSqlQuery("select * from e_platform_account").findList());
+        //db.insert(from("t1", "v1"));
+        //db.delete(Setting.class, "t0");
+        //db.update(from("t1", "v1"));
+        //db.update(Setting.class)
+        //    .set(p(platform.setting.value), "vvv")
+        //    .where().eq(p(platform.setting.key), "kkk")
+        //    .update();
+        //db.createQuery(Setting.class).where().findList();
     }
 
-    private Setting from(String key, String value) {
-        Setting setting = new Setting();
-        setting.setKey(key);
-        setting.setValue(value);
-        return setting;
-    }
+    @Mapper
+    public interface OM {
 
-    @Test
-    public void teststsetst() {
-        Setting setting = new Setting();
-        //setting.setKey(key);
-        setting.setValue("123");
-        db.delete(setting);
+        OM om = Mappers.getMapper(OM.class);
+
+        Account account(String username, String password, SessionUserType type);
+
+        Group group(String name);
+
+        Permission permission(String name, String code);
+
+        Role role(String name);
+
+        Setting setting(String key, String value);
     }
 }

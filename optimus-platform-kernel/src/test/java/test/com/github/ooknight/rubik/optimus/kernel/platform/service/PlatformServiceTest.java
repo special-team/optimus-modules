@@ -89,7 +89,7 @@ public class PlatformServiceTest {
     }
 
     @Test
-    public void changeAccountPassword() {
-        service.changeAccountPassword(1L, "");
+    public void password() {
+        service.password(1L, "");
     }
 }

@@ -24,6 +24,7 @@ public class Message extends UEntity {
     @ManyToOne
     @JoinColumn(name = "from_")
     private Account from;
-    @Column(name = "to_")
-    private String to;
+    @ManyToOne
+    @JoinColumn(name = "to_")
+    private Account to;
 }
