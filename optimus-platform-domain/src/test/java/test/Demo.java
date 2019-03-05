@@ -5,10 +5,12 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Group;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Message;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Module;
+import com.github.ooknight.rubik.optimus.archer.platform.entity.Permission;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Privilege;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
+import com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema;
 
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
@@ -16,6 +18,9 @@ import io.ebean.config.DatabaseConfig;
 import io.ebean.datasource.DataSourceConfig;
 import org.junit.Before;
 import org.junit.Test;
+
+import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.p;
+import static com.github.ooknight.rubik.optimus.archer.platform.schema.PlatformSchema.platform;
 
 public class Demo {
 
@@ -48,6 +53,7 @@ public class Demo {
         System.out.println(db.find(Group.class).findList().size());
         System.out.println(db.find(Message.class).findList().size());
         System.out.println(db.find(Module.class).findList().size());
+        System.out.println(db.find(Permission.class).findList().size());
         System.out.println(db.find(Privilege.class).findList().size());
         System.out.println(db.find(Role.class).findList().size());
         System.out.println(db.find(Setting.class).findList().size());
@@ -69,5 +75,34 @@ public class Demo {
         System.out.println(setting);
         db.insert(setting);
         System.out.println(db.createQuery(Setting.class).findList());
+    }
+
+    @Test
+    public void test3() {
+        System.out.println(PlatformSchema.platform.setting.key.eq("1"));
+        System.out.println(PlatformSchema.platform.setting.value);
+        db.insert(from("t1", "v1"));
+        db.delete(Setting.class, "t0");
+        db.update(from("t1", "v1"));
+        db.update(Setting.class)
+            .set(p(platform.setting.value), "vvv")
+            .where().eq(p(platform.setting.key), "kkk")
+            .update();
+        db.createQuery(Setting.class).where().findList();
+    }
+
+    private Setting from(String key, String value) {
+        Setting setting = new Setting();
+        setting.setKey(key);
+        setting.setValue(value);
+        return setting;
+    }
+
+    @Test
+    public void teststsetst() {
+        Setting setting = new Setting();
+        //setting.setKey(key);
+        setting.setValue("123");
+        db.delete(setting);
     }
 }

@@ -1,6 +1,5 @@
 package com.github.ooknight.rubik.optimus.kernel.platform.service.impl;
 
-import com.github.ooknight.rubik.core.query.QueryEngine;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Privilege;
@@ -25,7 +24,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 
     @Override
     public Optional<Account> getAccount(String username) {
-        return QueryEngine.QUERY(QAccount.class).role.fetch().group.fetch().username.equalTo(username).findOneOrEmpty();
+        return new QAccount().role.fetch().group.fetch().username.equalTo(username).findOneOrEmpty();
     }
 
     @Override
@@ -46,13 +45,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     @Override
     public Set<Privilege> getPrivilege(Long role, Long group) {
         if (role != null && group != null) {
-            return QueryEngine.QUERY(QPrivilege.class).or().role.id.equalTo(role).group.id.equalTo(group).endOr().findSet();
+            return new QPrivilege().or().role.id.equalTo(role).group.id.equalTo(group).endOr().findSet();
         }
         if (role != null) {
-            return QueryEngine.QUERY(QPrivilege.class).role.id.equalTo(role).findSet();
+            return new QPrivilege().role.id.equalTo(role).findSet();
         }
         if (group != null) {
-            return QueryEngine.QUERY(QPrivilege.class).group.id.equalTo(group).findSet();
+            return new QPrivilege().group.id.equalTo(group).findSet();
         }
         return Sets.newHashSet();
     }

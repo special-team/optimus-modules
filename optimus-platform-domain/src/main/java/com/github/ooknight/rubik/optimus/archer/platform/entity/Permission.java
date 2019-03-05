@@ -17,7 +17,6 @@ public class Permission extends UEntity {
 
     @Column(name = "name_")
     private String name;
-    //
     @Column(name = "code_")
     private String code;
 }

@@ -17,6 +17,5 @@ import javax.persistence.Table;
 public class Role extends UEntity {
 
     @Column(name = "name_")
-    @JSONField(ordinal = 101)
     private String name;
 }

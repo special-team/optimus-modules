@@ -75,7 +75,7 @@ CREATE TABLE e_platform_account (
     email_              VARCHAR(50)           NULL COMMENT '邮箱',
     role_id_            BIGINT                NULL COMMENT '角色',
     group_id_           BIGINT                NULL COMMENT '组',
-    type_               INT                   NOT NULL COMMENT '用户标识[1:NORMAL|9:GOD]',
+    type_               VARCHAR(20)           NOT NULL COMMENT '用户标识',
     salt_               VARCHAR(32)           NOT NULL COMMENT 'SALT',
     deleted_            BOOLEAN DEFAULT FALSE NOT NULL,
     created_            DATETIME              NULL,
