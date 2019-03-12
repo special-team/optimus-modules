@@ -5,7 +5,6 @@ import com.github.ooknight.rubik.core.entity.UEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -24,6 +23,6 @@ public class Module extends UEntity {
     private String icon;
     @Column(name = "ordinal_")
     private Integer ordinal;
-    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "module")
     private List<Function> function;
 }

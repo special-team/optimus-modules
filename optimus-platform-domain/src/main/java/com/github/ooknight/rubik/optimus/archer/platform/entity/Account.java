@@ -34,7 +34,7 @@ public class Account extends UEntity {
     private String mobile;
     @Column(name = "email_")
     private String email;
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "role_id_")
     private Role role;
     @ManyToOne

@@ -11,7 +11,6 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
 import com.github.ooknight.rubik.prototype.authority.SessionUserType;
-import com.github.ooknight.rubik.support.mocker.Mock;
 
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
@@ -20,7 +19,10 @@ import io.ebean.datasource.DataSourceConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import static test.Demo.OM.om;
 
 public class Demo {
 
@@ -34,34 +36,22 @@ public class Demo {
         dsc.setUrl("jdbc:h2:mem:demo_db;INIT=RUNSCRIPT FROM 'classpath:/db-schema.h2.ddl';");
         dsc.setUsername("sa");
         dsc.setPassword("sa");
-        //
         DatabaseConfig dbc = new DatabaseConfig();
         dbc.setDataSourceConfig(dsc);
-        //sc.setDatabaseBooleanTrue("1");
-        //sc.setDatabaseBooleanFalse("0");
-        //dbc.setAutoCommitMode(true);
-        //dbc.setDefaultServer(true);
-        //dbc.setRegister(true);
-        //
         db = DatabaseFactory.create(dbc);
     }
 
     @Test
     public void testInsert() {
-        db.insert(Mock.mock(Account.class));
-        //db.insert(om.account("test", "123456", SessionUserType.NORMAL));
-        //db.insert(function);
-        db.insert(Mock.mock(Group.class));
-        //db.insert(om.group("test"));
+        db.insert(om.account("test", "123456", SessionUserType.NORMAL));
+        db.insert(om.function("test"));
+        db.insert(om.group("test"));
         //db.insert(message);
-        //db.insert(module);
-        db.insert(Mock.mock(Permission.class));
-        //db.insert(om.permission("test", "test"));
-        //db.insert(privilege);
-        db.insert(Mock.mock(Role.class));
-        //db.insert(om.role("test"));
-        db.insert(Mock.mock(Setting.class));
-        //db.insert(om.setting("test", "123"));
+        db.insert(om.module("test"));
+        db.insert(om.permission("test", "test"));
+        db.insert(om.role("test"));
+        db.insert(om.privilege(1L));
+        db.insert(om.setting("test", "123"));
     }
 
     @Test
@@ -87,7 +77,7 @@ public class Demo {
 
     @Test
     public void test3() {
-        db.insert(Mock.mock(Account.class));
+        db.insert(om.account("test", "123456", SessionUserType.NORMAL));
         System.out.println(db.find(Account.class).findList());
         System.out.println(db.createSqlQuery("select * from e_platform_account").findList());
         //db.insert(from("t1", "v1"));
@@ -107,9 +97,16 @@ public class Demo {
 
         Account account(String username, String password, SessionUserType type);
 
+        Function function(String name);
+
         Group group(String name);
 
+        Module module(String name);
+
         Permission permission(String name, String code);
+
+        @Mapping(target = "role.id", source = "role")
+        Privilege privilege(Long role);
 
         Role role(String name);
 

@@ -39,8 +39,8 @@ public class Function extends UEntity {
     @Column(name = "display_")
     @Enumerated(EnumType.STRING)
     private DisplayMode display;
-    @Column(name = "is_lock_")
-    private Integer isLock;
+    @Column(name = "locked_")
+    private Boolean locked;
     @Column(name = "ordinal_")
     private Integer ordinal;
 }
