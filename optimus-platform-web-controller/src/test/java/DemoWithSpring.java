@@ -16,8 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Base64Utils;
 
@@ -26,13 +26,11 @@ import javax.annotation.Resource;
 @RunWith(SpringRunner.class)
 @EnableAutoConfiguration
 @SpringBootTest(classes = {KernelConfiguration.class, SecurityAutoConfiguration.class})
-@TestPropertySource(value = "classpath:develop.properties")
+//@TestPropertySource(value = "classpath:develop.properties")
 public class DemoWithSpring {
 
     @Resource
     private AuthenticationConfiguration configuration;
-    @Resource
-    private PasswordEncoder encoder;
     @Resource
     private SecurityUserService service;
 
@@ -46,8 +44,10 @@ public class DemoWithSpring {
 
     @Test
     public void test0() {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         System.out.println(encoder.encode("123456"));
-        boolean x = encoder.matches("123456", "$2a$08$MoeTFBDdlM1td3Ldkl09fukG4eEJCVJcTCwbgjX38.IGs3hpEmD0S");
+        // boolean x = encoder.matches("123456", "                       $2a$08$MoeTFBDdlM1td3Ldkl09fukG4eEJCVJcTCwbgjX38.IGs3hpEmD0S");
+        boolean x = encoder.matches("123456", "{bcrypt}$2a$10$whqKt7.Mt7Dqj.EM1CBlQuEVddPkAlHo8C.mXPpCFpx3iwjOFA5jm");
         System.out.println(x);
     }
 
@@ -59,7 +59,7 @@ public class DemoWithSpring {
         String expect = decrypt_("L2RJcTA3eDU0T0hBcXgzNHVtY3VpRVRKek4yd0p0aHovVjAzK3lrK2kzMD0=");
         if (expect != null && expect.equals(username + password + timestamp)) {
             Account account = service.getAccount(decrypt_(username)).orElseThrow(() -> new UsernameNotFoundException(username));
-            if (encoder.matches(decrypt_(password), account.getPassword())) {
+            if (PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(decrypt_(password), account.getPassword())) {
                 Long uid = account.getId();
                 Long rid = account.getRole() == null ? null : account.getRole().getId();
                 Long gid = account.getGroup() == null ? null : account.getGroup().getId();
