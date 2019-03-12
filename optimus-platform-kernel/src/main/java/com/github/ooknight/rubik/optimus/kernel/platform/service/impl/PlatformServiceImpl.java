@@ -8,7 +8,9 @@ import com.github.ooknight.rubik.optimus.archer.platform.entity.Role;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Setting;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QAccount;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QFunction;
+import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QGroup;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QModule;
+import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QRole;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.query.QSetting;
 import com.github.ooknight.rubik.optimus.archer.platform.enums.DisplayMode;
 import com.github.ooknight.rubik.optimus.archer.platform.service.PlatformService;
@@ -31,6 +33,8 @@ public class PlatformServiceImpl implements PlatformService {
     @Resource
     private Database db;
 
+    /* ========= ========= ========= ========= ========= ========= ========= ========= ========= account */
+
     @Override
     public void create(Account account) {
         db.insert(account);
@@ -40,6 +44,23 @@ public class PlatformServiceImpl implements PlatformService {
     public void update(Account account) {
         db.update(account);
     }
+
+    @Override
+    public List<Account> account() {
+        return db.createQuery(Account.class).findList();
+    }
+
+    @Override
+    public Optional<Account> account(Long id) {
+        return db.createQuery(Account.class).setId(id).findOneOrEmpty();
+    }
+
+    @Override
+    public QAccount createAccountQuery() {
+        return new QAccount();
+    }
+
+    /* ========= ========= ========= ========= ========= ========= ========= ========= ========= group */
 
     @Override
     public void create(Group group) {
@@ -52,6 +73,23 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
+    public List<Group> group() {
+        return db.find(Group.class).findList();
+    }
+
+    @Override
+    public Optional<Group> group(Long id) {
+        return db.createQuery(Group.class).setId(id).findOneOrEmpty();
+    }
+
+    @Override
+    public QGroup createGroupQuery() {
+        return new QGroup();
+    }
+
+    /* ========= ========= ========= ========= ========= ========= ========= ========= ========= role */
+
+    @Override
     public void create(Role role) {
         db.insert(role);
     }
@@ -60,6 +98,23 @@ public class PlatformServiceImpl implements PlatformService {
     public void update(Role role) {
         db.update(role);
     }
+
+    @Override
+    public List<Role> role() {
+        return db.createQuery(Role.class).findList();
+    }
+
+    @Override
+    public Optional<Role> role(Long id) {
+        return db.createQuery(Role.class).setId(id).findOneOrEmpty();
+    }
+
+    @Override
+    public QRole createRoleQuery() {
+        return new QRole();
+    }
+
+    /* ========= ========= ========= ========= ========= ========= ========= ========= ========= others */
 
     @Cacheable("menu")
     @Override

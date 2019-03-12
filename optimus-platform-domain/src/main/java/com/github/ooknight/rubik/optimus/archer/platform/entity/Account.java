@@ -34,7 +34,7 @@ public class Account extends UEntity {
     private String mobile;
     @Column(name = "email_")
     private String email;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "role_id_")
     private Role role;
     @ManyToOne
@@ -43,6 +43,4 @@ public class Account extends UEntity {
     @Column(name = "type_")
     @Enumerated(EnumType.STRING)
     private SessionUserType type;
-    @Column(name = "salt_")
-    private String salt;
 }

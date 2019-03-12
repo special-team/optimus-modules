@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.ooknight.rubik</groupId>
+        <artifactId>optimus-modules</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>optimus-platform-web-controller</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.ooknight.rubik</groupId>
+            <artifactId>optimus-core-web-security</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ooknight.rubik</groupId>
+            <artifactId>optimus-platform-domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ooknight.rubik</groupId>
+            <artifactId>optimus-platform-kernel</artifactId>
+            <version>${revision}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.repaint.maven</groupId>
+                <artifactId>tiles-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

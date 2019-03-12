@@ -1,6 +1,7 @@
 package test.com.github.ooknight.rubik.optimus.kernel.platform.service;
 
 import optimus.JUNIT;
+import com.github.ooknight.rubik.optimus.archer.platform.entity.Account;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Function;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Group;
 import com.github.ooknight.rubik.optimus.archer.platform.entity.Module;
@@ -26,6 +27,13 @@ public class PlatformServiceTest {
 
     @Resource
     private PlatformService service;
+
+    @Test
+    public void createAccount() {
+        Account t = Mock.mock(Account.class);
+        System.out.println(t);
+        service.create(t);
+    }
 
     @Test
     public void createGroup() {

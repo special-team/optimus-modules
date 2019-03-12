@@ -10,6 +10,7 @@
     <modules>
         <module>optimus-platform-domain</module>
         <module>optimus-platform-kernel</module>
+        <module>optimus-platform-web-controller</module>
     </modules>
 
     <properties>

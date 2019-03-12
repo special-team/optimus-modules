@@ -73,7 +73,7 @@ CREATE TABLE e_platform_account (
     certificate_number_ VARCHAR(50)           NULL COMMENT '证件号码',
     mobile_             VARCHAR(50)           NULL COMMENT '手机',
     email_              VARCHAR(50)           NULL COMMENT '邮箱',
-    role_id_            BIGINT                NULL COMMENT '角色',
+    role_id_            BIGINT                NOT NULL COMMENT '角色',
     group_id_           BIGINT                NULL COMMENT '组',
     type_               VARCHAR(20)           NOT NULL COMMENT '用户标识',
     salt_               VARCHAR(50)           NULL COMMENT 'SALT',
